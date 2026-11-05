@@ -85,6 +85,19 @@ metadata:
 - **防漂移**：一个规则只允许一个现行入口；`lint` 检查重复与坏链。
 - **可迁移**：纯 Markdown + 一个无依赖脚本；记忆目录本身可以是 Git 仓库，跨机器同步。
 
+## 多机器（可选）
+
+多台机器共享一个记忆库（记忆目录本身用 Git 同步）时，让每台机器把本技能 clone 到**同一路径**，
+并在共享技能目录里放一个软链：
+
+```sh
+git clone <this-repo> ~/Projects/agent-memory-skill
+ln -s ~/Projects/agent-memory-skill ~/.claude/skills/agent-memory   # 或 ./scripts/install.sh
+export AGENT_MEMORY_HOME="$HOME/agent-home/memory"                  # 指向真实记忆库
+```
+
+这样每台机器的 agent 都从同一份技能定义工作，记忆数据仍由你自己的仓库同步。
+
 ## 自测
 
 ```sh
